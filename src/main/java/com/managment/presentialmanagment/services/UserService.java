@@ -14,11 +14,11 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository repository;
-	
+	//TODO would be a good idea implements a generic service?
 	public User find(Integer id) { 
 		Optional<User> obj = repository.findById(id); 
 		return obj.orElseThrow(() ->  new ObjectNotFoundException(
-				"Objeto não encontrado! Id: "+ id +", Tipo: " + User.class.getName()));
+				"Object not found! Id: "+ id +", Type: " + User.class.getName()));
 	
 	
 	} 
