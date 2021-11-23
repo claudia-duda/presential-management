@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -22,15 +24,20 @@ public class User implements Serializable{
 	
 	@OneToMany(mappedBy="user")
 	private List<Request> requests = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "team_id")
+	private Team team;
 	public User() {
 		
 	}
 	
-	public User(Integer id, String name, String email, String password) {
+	public User(Integer id, String name, String email, String password,Team team) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.team = team;
 	}
 
 	public Integer getId() {

@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.managment.presentialmanagment.domain.enums.CategoryEnum;
+import com.managment.presentialmanagment.domain.enums.PriorityEnum;
+
 @Entity
 public class Request implements Serializable{
 	
@@ -18,26 +21,32 @@ public class Request implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String priority; //TODO priority using enum with default values;
+	private Integer priority; //TODO priority using enum with default values;
 	private LocalDateTime date;
-	private String category; //TODO category using enum with default values;
+	private Integer category; //TODO category using enum with default values;
 	private String optionalMessage;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable = false)
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name= "cellphone_id", nullable = false)
+	private Cellphone cellphone;
 
 	public Request() {
 		
 	}
 
-	public Request(Integer id, String priority, LocalDateTime date, String category, String optionalMessage, User user) {
+	public Request(Integer id, PriorityEnum priority, LocalDateTime date, CategoryEnum category, 
+			String optionalMessage, User user, Cellphone cellphone) {
 		this.id = id;
-		this.priority = priority;
+		this.priority = priority.getCode();
 		this.date = date;
-		this.category = category;
+		this.category = category.getCode();
 		this.optionalMessage = optionalMessage;
 		this.user = user;
+		this.setCellphone(cellphone);
 	}
 
 	public Integer getId() {
@@ -48,12 +57,12 @@ public class Request implements Serializable{
 		this.id = id;
 	}
 
-	public String getPriority() {
-		return priority;
+	public PriorityEnum getPriority() {
+		return PriorityEnum.toEnum(priority);
 	}
 
-	public void setPriority(String priority) {
-		this.priority = priority;
+	public void setPriority(PriorityEnum priority) {
+		this.priority = priority.getCode();
 	}
 
 	public LocalDateTime getDate() {
@@ -64,12 +73,12 @@ public class Request implements Serializable{
 		this.date = date;
 	}
 
-	public String getCategory() {
-		return category;
+	public CategoryEnum getCategory() {
+		return CategoryEnum.toEnum(category);
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory(CategoryEnum category) {
+		this.category = category.getCode();
 	}
 
 	public String getOptionalMessage() {
@@ -86,6 +95,14 @@ public class Request implements Serializable{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Cellphone getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(Cellphone cellphone) {
+		this.cellphone = cellphone;
 	}
 
 	@Override
