@@ -17,6 +17,6 @@ public class UserService {
 	public User find(Integer id) { 
 		Optional<User> obj = repository.findById(id); 
 		return obj.orElse(null); 
-		} 
-
+	} 
+	
 }
