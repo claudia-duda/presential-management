@@ -6,11 +6,14 @@ import java.time.LocalDateTime;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Topic implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId
 	private TopicPK id = new TopicPK();
 
@@ -54,6 +57,7 @@ public class Topic implements Serializable{
 	public Cellphone getCellphone() {
 		return id.getCellphone();
 	}
+	@JsonIgnore
 	public Team getTeam() {
 		return id.getTeam();
 	}

@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,9 +25,11 @@ public class User implements Serializable{
 	private String email;
 	private String password;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="user")
 	private List<Request> requests = new ArrayList<>();
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
@@ -102,6 +107,5 @@ public class User implements Serializable{
 		}
 		return true;
 	}
-	
-	
+
 }

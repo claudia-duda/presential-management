@@ -74,7 +74,7 @@ public class PresentialmanagmentApplication implements CommandLineRunner{
 		teamRepository.saveAll(Arrays.asList(team,team2));
 		userRepository.saveAll(Arrays.asList(user,user2,user3));
 		cellphoneRepository.saveAll(Arrays.asList(cellphone,cellphone2));
-		requestRepository.saveAll(Arrays.asList(request));
+		requestRepository.saveAll(Arrays.asList(request, request2, request3));
 		topicRepository.saveAll(Arrays.asList(topic,topic2));
 
 		

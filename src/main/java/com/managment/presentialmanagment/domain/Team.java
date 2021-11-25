@@ -1,27 +1,37 @@
 package com.managment.presentialmanagment.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Team {
+public class Team implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "team")
 	private List<User> users = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "id.team")
+	@ElementCollection
 	private Set<Topic> topics = new HashSet<>();
 
 	public Team() {
@@ -33,7 +43,7 @@ public class Team {
 		this.id = id;
 		this.name = name;
 	}
-	
+	@JsonIgnore
 	public List<Cellphone> getCellphones(){
 		List<Cellphone> list = new ArrayList<>();
 		
@@ -58,7 +68,7 @@ public class Team {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-
+	
 	public Set<Topic> getTopics() {
 		return topics;
 	}

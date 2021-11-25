@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -25,13 +26,13 @@ public class Cellphone implements Serializable{
 	private String imei1;
 	private String imei2;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "cellphone")
 	private List<Request> requests = new ArrayList<>();
 	
+	@JsonIgnore
 	//TODO review the way how has been using the topic into this class
-	@OneToMany(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "id.cellphone")
+	@OneToMany(mappedBy = "id.cellphone")
 	private List<Topic> topics = new ArrayList<>();
 
 	public Cellphone() {
@@ -48,7 +49,7 @@ public class Cellphone implements Serializable{
 		this.imei1 = imei1;
 		this.imei2 = imei2;
 	}
-	
+	@JsonIgnore
 	public List<Team> getTeams(){
 		List<Team> list = new ArrayList<>();
 		
@@ -104,7 +105,7 @@ public class Cellphone implements Serializable{
 	public void setImei2(String imei2) {
 		this.imei2 = imei2;
 	}
-
+	@JsonIgnore
 	public List<Request> getRequests() {
 		return requests;
 	}
@@ -113,7 +114,7 @@ public class Cellphone implements Serializable{
 		this.requests = requests;
 	}
 
-
+	@JsonIgnore
 	public List<Topic> getTopics() {
 		return topics;
 	}

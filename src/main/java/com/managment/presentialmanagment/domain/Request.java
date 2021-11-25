@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 
@@ -21,15 +22,17 @@ public class Request implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer priority; //TODO priority using enum with default values;
+	private Integer priority;
 	private LocalDateTime date;
-	private Integer category; //TODO category using enum with default values;
+	private Integer category;
 	private String optionalMessage;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable = false)
 	private User user;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name= "cellphone_id", nullable = false)
 	private Cellphone cellphone;
