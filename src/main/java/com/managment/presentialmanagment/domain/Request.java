@@ -10,15 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 
 @Entity
-public class Request implements Serializable{
-	
+public class Request implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -26,23 +25,21 @@ public class Request implements Serializable{
 	private LocalDateTime date;
 	private Integer category;
 	private String optionalMessage;
-	
-	@JsonManagedReference
+
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
-	@JsonManagedReference
+
 	@ManyToOne
-	@JoinColumn(name= "cellphone_id", nullable = false)
+	@JoinColumn(name = "cellphone_id", nullable = false)
 	private Cellphone cellphone;
 
 	public Request() {
-		
+
 	}
 
-	public Request(Integer id, PriorityEnum priority, LocalDateTime date, CategoryEnum category, 
-			String optionalMessage, User user, Cellphone cellphone) {
+	public Request(Integer id, PriorityEnum priority, LocalDateTime date, CategoryEnum category, String optionalMessage,
+			User user, Cellphone cellphone) {
 		this.id = id;
 		this.priority = priority.getCode();
 		this.date = date;
@@ -137,6 +134,5 @@ public class Request implements Serializable{
 		}
 		return true;
 	}
-	
-	
+
 }

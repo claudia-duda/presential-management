@@ -12,8 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User implements Serializable{
@@ -25,11 +24,10 @@ public class User implements Serializable{
 	private String email;
 	private String password;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Request> requests = new ArrayList<>();
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
@@ -69,13 +67,21 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public List<Request> getRequests() {
 		return requests;
 	}
 
 	public void setRequests(List<Request> requests) {
 		this.requests = requests;
+	}
+
+	public String getTeam() {
+		return team.getName();
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 	@Override

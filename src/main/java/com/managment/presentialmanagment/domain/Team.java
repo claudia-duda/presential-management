@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -26,7 +25,7 @@ public class Team implements Serializable{
 	private Integer id;
 	private String name;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "team")
 	private List<User> users = new ArrayList<>();
 	
@@ -60,7 +59,7 @@ public class Team implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public List<User> getUsers() {
 		return users;
 	}

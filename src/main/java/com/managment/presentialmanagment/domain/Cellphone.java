@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -26,11 +25,11 @@ public class Cellphone implements Serializable{
 	private String imei1;
 	private String imei2;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "cellphone")
 	private List<Request> requests = new ArrayList<>();
 	
-	@JsonIgnore
+	
 	//TODO review the way how has been using the topic into this class
 	@OneToMany(mappedBy = "id.cellphone")
 	private List<Topic> topics = new ArrayList<>();
