@@ -23,4 +23,9 @@ public class CellphoneService {
 	
 	} 
 	
+	public Cellphone insert(Cellphone obj) {
+		obj.setId(null);
+		return repository.save(obj);
+		
+	}
 }
