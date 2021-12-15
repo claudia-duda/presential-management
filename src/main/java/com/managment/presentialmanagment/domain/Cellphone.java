@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Cellphone implements Serializable{
 	private String imei2;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "cellphone")
+	@OneToMany(mappedBy = "cellphone", cascade = CascadeType.ALL)
 	private List<Request> requests = new ArrayList<>();
 	
 	

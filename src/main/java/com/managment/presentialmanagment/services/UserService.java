@@ -1,12 +1,15 @@
 package com.managment.presentialmanagment.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.managment.presentialmanagment.domain.User;
 import com.managment.presentialmanagment.repositories.UserRepository;
+import com.managment.presentialmanagment.services.exceptions.DataIntegrityException;
 import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -22,5 +25,29 @@ public class UserService {
 	
 	
 	} 
+	public User insert(User obj) {
+		obj.setId(null);
+		return repository.save(obj);
+		
+	}
+	
+	public User update(User obj) {
+		find(obj.getId());
+		return repository.save(obj);
+		
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try{
+			repository.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Its no possible delete a User who is from a team");
+		}
+	}
+	
+	public List<User> findAll(){
+		return repository.findAll();
+	}
 	
 }

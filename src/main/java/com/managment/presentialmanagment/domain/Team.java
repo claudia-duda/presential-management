@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+//TODO update relation of tables using cascade
 @Entity
 public class Team implements Serializable{
 	
@@ -29,7 +30,7 @@ public class Team implements Serializable{
 	@OneToMany(mappedBy = "team")
 	private List<User> users = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "id.team")
+	@OneToMany(mappedBy = "id.team", cascade = CascadeType.ALL)
 	@ElementCollection
 	private Set<Topic> topics = new HashSet<>();
 
@@ -42,6 +43,14 @@ public class Team implements Serializable{
 		this.id = id;
 		this.name = name;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@JsonIgnore
 	public List<Cellphone> getCellphones(){
 		List<Cellphone> list = new ArrayList<>();

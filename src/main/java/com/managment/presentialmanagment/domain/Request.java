@@ -12,12 +12,12 @@ import javax.persistence.ManyToOne;
 
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
-
+//TODO update relation of tables using cascade
 @Entity
 public class Request implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	//TODO Request is really an entity? 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
