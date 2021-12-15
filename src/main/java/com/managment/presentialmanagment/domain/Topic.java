@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//TODO update relation of tables using cascade
 @Entity
 public class Topic implements Serializable{
 	private static final long serialVersionUID = 1L;

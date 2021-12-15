@@ -27,10 +27,10 @@ public class Team implements Serializable{
 	private String name;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "team")
+	@OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
 	private List<User> users = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "id.team", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "id.team")
 	@ElementCollection
 	private Set<Topic> topics = new HashSet<>();
 

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
-//TODO update relation of tables using cascade
+
 @Entity
 public class Request implements Serializable {
 

@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-//TODO update relation of tables using cascade
+
 @Entity
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class User implements Serializable{
 	private String password;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
 	private List<Request> requests = new ArrayList<>();
 	
 	@ManyToOne

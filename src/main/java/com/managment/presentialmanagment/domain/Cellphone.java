@@ -32,7 +32,7 @@ public class Cellphone implements Serializable{
 	
 	
 	//TODO review the way how has been using the topic into this class
-	@OneToMany(mappedBy = "id.cellphone")
+	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
 	private List<Topic> topics = new ArrayList<>();
 
 	public Cellphone() {

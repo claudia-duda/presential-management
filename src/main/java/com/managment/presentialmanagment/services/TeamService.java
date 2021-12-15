@@ -42,7 +42,7 @@ public class TeamService {
 		try{
 			repository.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Its no possible delete a Team who is into a topic");
+			throw new DataIntegrityException("Its no possible delete a Team who has topics");
 		}
 	}
 	

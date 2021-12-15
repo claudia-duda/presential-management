@@ -11,11 +11,11 @@ import javax.persistence.ManyToOne;
 public class TopicPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name = "cellphone_id", nullable = false)
 	private Cellphone cellphone;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "team_id", nullable = false)
 	private Team team;
 	
