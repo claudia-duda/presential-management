@@ -14,7 +14,6 @@ import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 public class Request implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	//TODO transform request using composite primary key
 	@JsonIgnore
 	@EmbeddedId
 	private RequestPK id = new RequestPK();

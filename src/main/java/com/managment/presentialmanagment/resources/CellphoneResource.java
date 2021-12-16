@@ -2,6 +2,7 @@ package com.managment.presentialmanagment.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.managment.presentialmanagment.domain.Cellphone;
+import com.managment.presentialmanagment.dto.CellphoneDTO;
 import com.managment.presentialmanagment.services.CellphoneService;
 
 @RestController
@@ -51,10 +53,11 @@ public class CellphoneResource {
 	}
 	
 	@RequestMapping(method= RequestMethod.GET)
-	public ResponseEntity<List<Cellphone>> findAll() {
+	public ResponseEntity<List<CellphoneDTO>> findAll() {
 		
 		List<Cellphone> list = service.findAll();
-	
-		return ResponseEntity.ok().body(list);
+		List<CellphoneDTO> listDto  = list.stream().map(obj -> new CellphoneDTO(obj)).collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(listDto);
 	}
 }

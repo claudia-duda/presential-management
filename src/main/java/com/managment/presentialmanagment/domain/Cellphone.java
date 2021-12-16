@@ -32,8 +32,6 @@ public class Cellphone implements Serializable{
 	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
 	private Set<Request> requests = new HashSet<>();
 	
-	
-	//TODO review the way how has been using the topic into this class
 	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
 	private Set<Topic> topics = new HashSet<>();
 
