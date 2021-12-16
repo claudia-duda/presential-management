@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.managment.presentialmanagment.domain.Request;
-import com.managment.presentialmanagment.domain.Request;
 import com.managment.presentialmanagment.services.RequestService;
 
 @RestController
@@ -23,13 +22,7 @@ public class RequestResource {
 	@Autowired
 	private RequestService service;
 	
-	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
-	public ResponseEntity<Request> find(@PathVariable Integer id ) {
-		
-		Request Request = service.find(id);
 	
-		return ResponseEntity.ok().body(Request);
-	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Request obj){
 		obj = service.insert(obj);
@@ -38,12 +31,6 @@ public class RequestResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Request obj, @PathVariable Integer id){
-		obj.setId(id);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id){

@@ -30,12 +30,6 @@ public class RequestService {
 		
 	}
 	
-	public Request update(Request obj) {
-		find(obj.getId());
-		return repository.save(obj);
-		
-	}
-	
 	public void delete(Integer id) {
 		find(id);
 		try{

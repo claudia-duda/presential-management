@@ -2,7 +2,9 @@ package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,13 +29,14 @@ public class Cellphone implements Serializable{
 	private String imei2;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "cellphone", cascade = CascadeType.ALL)
-	private List<Request> requests = new ArrayList<>();
+	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
+	private Set<Request> requests = new HashSet<>();
 	
 	
 	//TODO review the way how has been using the topic into this class
 	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
-	private List<Topic> topics = new ArrayList<>();
+	private Set<Topic> topics = new HashSet<>();
+
 
 	public Cellphone() {
 		
@@ -106,20 +109,20 @@ public class Cellphone implements Serializable{
 		this.imei2 = imei2;
 	}
 	@JsonIgnore
-	public List<Request> getRequests() {
+	public Set<Request> getRequests() {
 		return requests;
 	}
 
-	public void setRequests(List<Request> requests) {
+	public void setRequests(Set<Request> requests) {
 		this.requests = requests;
 	}
 
 	@JsonIgnore
-	public List<Topic> getTopics() {
+	public Set<Topic> getTopics() {
 		return topics;
 	}
 
-	public void setTopics(List<Topic> topics) {
+	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
 

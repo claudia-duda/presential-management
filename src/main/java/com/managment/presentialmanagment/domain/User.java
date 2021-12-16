@@ -2,7 +2,9 @@ package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,8 +28,8 @@ public class User implements Serializable{
 	private String password;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
-	private List<Request> requests = new ArrayList<>();
+	@OneToMany(mappedBy="id.user", cascade = CascadeType.REMOVE)
+	private Set<Request> requests = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "team_id")
@@ -43,7 +45,14 @@ public class User implements Serializable{
 		this.password = password;
 		this.team = team;
 	}
-
+	@JsonIgnore
+	public List<Cellphone> getcellphones(){
+		List<Cellphone> cellphones= new ArrayList<>();
+		for (Request request: requests) {
+			cellphones.add(request.getCellphone());
+		}
+		return cellphones;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -69,11 +78,11 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	public List<Request> getRequests() {
+	public Set<Request> getRequests() {
 		return requests;
 	}
 
-	public void setRequests(List<Request> requests) {
+	public void setRequests(Set<Request> requests) {
 		this.requests = requests;
 	}
 

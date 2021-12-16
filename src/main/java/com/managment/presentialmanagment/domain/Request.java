@@ -3,13 +3,10 @@ package com.managment.presentialmanagment.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 
@@ -17,46 +14,44 @@ import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 public class Request implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	//TODO Request is really an entity? 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	//TODO transform request using composite primary key
+	@JsonIgnore
+	@EmbeddedId
+	private RequestPK id = new RequestPK();
 	private Integer priority;
 	private LocalDateTime date;
 	private Integer category;
 	private String optionalMessage;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-
-	@ManyToOne
-	@JoinColumn(name = "cellphone_id", nullable = false)
-	private Cellphone cellphone;
 
 	public Request() {
 
 	}
 
-	public Request(Integer id, PriorityEnum priority, LocalDateTime date, CategoryEnum category, String optionalMessage,
-			User user, Cellphone cellphone) {
-		this.id = id;
-		this.priority = priority.getCode();
+	public Request(User user, Cellphone cellphone, int priority, LocalDateTime date, int category, String optionalMessage) {
+		id.setUser(user);
+		id.setCellphone(cellphone);
+		this.priority = priority;
 		this.date = date;
-		this.category = category.getCode();
+		this.category = category;
 		this.optionalMessage = optionalMessage;
-		this.user = user;
-		this.setCellphone(cellphone);
 	}
 
-	public Integer getId() {
+	public RequestPK getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(RequestPK id) {
 		this.id = id;
 	}
 
+	public User getUser() {
+		return id.getUser();
+	}
+	
+	public Cellphone getCellphone() {
+		return id.getCellphone();
+	}
 	public PriorityEnum getPriority() {
 		return PriorityEnum.toEnum(priority);
 	}
@@ -89,22 +84,7 @@ public class Request implements Serializable {
 		this.optionalMessage = optionalMessage;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Cellphone getCellphone() {
-		return cellphone;
-	}
-
-	public void setCellphone(Cellphone cellphone) {
-		this.cellphone = cellphone;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
