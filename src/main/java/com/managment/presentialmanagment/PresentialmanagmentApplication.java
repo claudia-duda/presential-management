@@ -50,6 +50,12 @@ public class PresentialmanagmentApplication implements CommandLineRunner{
 		
 		Cellphone cellphone = new Cellphone(null,"cebu","pvt","CEBU-03","123456789","987456321");
 		Cellphone cellphone2 = new Cellphone(null,"tahoe","evt","TAHOE-03","123456789","987456321");
+		Cellphone cellphone3 = new Cellphone(null,"milan","evt","TAHOE-03","123456789","987456321");
+		Cellphone cellphone4 = new Cellphone(null,"berlin","evt","TAHOE-03","123456789","987456321");
+		Cellphone cellphone5 = new Cellphone(null,"racer-turbo","evt","TAHOE-03","123456789","987456321");
+		Cellphone cellphone6 = new Cellphone(null,"cat2","evt","TAHOE-03","123456789","987456321");
+		Cellphone cellphone7 = new Cellphone(null,"omde","evt","TAHOE-03","123456789","987456321");
+
 
 		Request request = new Request(user, cellphone, PriorityEnum.RED.getCode(), LocalDateTime.now(), CategoryEnum.HEADSET.getCode(), null);
 		Request request2 = new Request(user2, cellphone2,PriorityEnum.YELLOW.getCode(),LocalDateTime.now(),CategoryEnum.HEADSET.getCode(),null);
@@ -73,7 +79,7 @@ public class PresentialmanagmentApplication implements CommandLineRunner{
 		
 		teamRepository.saveAll(Arrays.asList(team,team2));
 		userRepository.saveAll(Arrays.asList(user,user2,user3));
-		cellphoneRepository.saveAll(Arrays.asList(cellphone,cellphone2));
+		cellphoneRepository.saveAll(Arrays.asList(cellphone,cellphone2,cellphone3,cellphone4,cellphone5,cellphone6,cellphone7));
 		topicRepository.saveAll(Arrays.asList(topic,topic2));
 		requestRepository.saveAll(Arrays.asList(request, request2, request3));
 
