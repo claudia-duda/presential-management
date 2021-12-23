@@ -2,7 +2,6 @@ package com.managment.presentialmanagment.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.managment.presentialmanagment.domain.Cellphone;
-import com.managment.presentialmanagment.dto.CellphoneDTO;
 import com.managment.presentialmanagment.services.CellphoneService;
 
 @RestController
 @RequestMapping(value="/cellphones")
+
 public class CellphoneResource {
 	
 	@Autowired
@@ -55,16 +54,15 @@ public class CellphoneResource {
 	}
 	
 	@RequestMapping(method= RequestMethod.GET)
-	public ResponseEntity<List<CellphoneDTO>> findAll() {
+	public ResponseEntity<List<Cellphone>> findAll() {
 		
 		List<Cellphone> list = service.findAll();
-		List<CellphoneDTO> listDto  = list.stream().map(obj -> new CellphoneDTO(obj)).collect(Collectors.toList());
 		
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value = "/page", method= RequestMethod.GET)
-	public ResponseEntity<Page<CellphoneDTO>> findPage(
+	public ResponseEntity<Page<Cellphone>> findPage(
 			@RequestParam(value = "page",  defaultValue = "0") Integer page, 
 			
 			@RequestParam(value = "linesPerPage",  defaultValue = "24") Integer linesPerPage, 
@@ -73,8 +71,7 @@ public class CellphoneResource {
 		
 		Page<Cellphone> list = service.findPage(page, linesPerPage, orderBy, direction);
 		
-		Page<CellphoneDTO> listDto  = list.map(obj -> new CellphoneDTO(obj));
 		
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok().body(list);
 	}
 }
