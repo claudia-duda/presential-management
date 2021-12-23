@@ -1,27 +1,40 @@
 package com.managment.presentialmanagment.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.managment.presentialmanagment.domain.Team;
-import com.managment.presentialmanagment.domain.Topic;
 
 public class TeamDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private Integer id;
+	
+	@NotEmpty(message = "Mandatory filling")
+	@Length(min=3, max=20, message = "The lenght must be into 2 and 20 characters")
 	private String name;
-	private Set<Topic> topics = new HashSet<>();
 	
 	public TeamDTO() {
 		
 	}
 	
 	public TeamDTO(Team team) {
+		id = team.getId();
 		name = team.getName();
-		topics = team.getTopics();
+		
 		                        
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -32,13 +45,5 @@ public class TeamDTO implements Serializable{
 		this.name = name;
 	}
 
-	public Set<Topic> getTopics() {
-		return topics;
-	}
-
-	public void setTopics(Set<Topic> topics) {
-		this.topics = topics;
-	}
-	
 	
 }

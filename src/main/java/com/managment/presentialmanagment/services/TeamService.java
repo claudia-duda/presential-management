@@ -5,9 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.managment.presentialmanagment.domain.Team;
+import com.managment.presentialmanagment.dto.TeamDTO;
 import com.managment.presentialmanagment.repositories.TeamRepository;
 import com.managment.presentialmanagment.services.exceptions.DataIntegrityException;
 import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundException;
@@ -17,6 +21,7 @@ public class TeamService {
 	
 	@Autowired
 	private TeamRepository repository;
+	
 	//TODO would be a good idea implements a generic service?
 	public Team find(Integer id) { 
 		Optional<Team> obj = repository.findById(id); 
@@ -48,6 +53,16 @@ public class TeamService {
 	
 	public List<Team> findAll(){
 		return repository.findAll();
+	}
+	
+	public Page<Team> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repository.findAll(pageRequest);
+	}
+	
+	public Team fromDTO(TeamDTO objDTO) {
+		return new Team(objDTO.getId(),objDTO.getName());
 	}
 	
 }

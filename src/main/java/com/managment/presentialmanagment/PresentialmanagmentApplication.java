@@ -57,8 +57,8 @@ public class PresentialmanagmentApplication implements CommandLineRunner{
 		Cellphone cellphone7 = new Cellphone(null,"omde","evt","TAHOE-03","123456789","987456321");
 
 
-		Request request = new Request(user, cellphone, PriorityEnum.RED.getCode(), LocalDateTime.now(), CategoryEnum.HEADSET.getCode(), null);
-		Request request2 = new Request(user2, cellphone2,PriorityEnum.YELLOW.getCode(),LocalDateTime.now(),CategoryEnum.HEADSET.getCode(),null);
+		Request request = new Request(user, cellphone, PriorityEnum.RED.getCode(), LocalDateTime.now().plusMinutes(20), CategoryEnum.HEADSET.getCode(), null);
+		Request request2 = new Request(user2, cellphone2,PriorityEnum.YELLOW.getCode(),LocalDateTime.now().plusMinutes(10),CategoryEnum.HEADSET.getCode(),null);
 		Request request3 = new Request(user3, cellphone2,PriorityEnum.GREEN.getCode(),LocalDateTime.now(),CategoryEnum.HEADSET.getCode(),null);
 		
 		
@@ -69,6 +69,8 @@ public class PresentialmanagmentApplication implements CommandLineRunner{
 		
 		Topic topic = new Topic(cellphone2, team2, LocalDateTime.now(), LocalDateTime.now().plusDays(3));
 		Topic topic2 = new Topic(cellphone, team, LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+		Topic topic3 = new Topic(cellphone5, team, LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+		Topic topic4 = new Topic(cellphone6, team2, LocalDateTime.now(), LocalDateTime.now().plusDays(3));
 		
 		cellphone.getTopics().addAll(Arrays.asList(topic2));
 		cellphone2.getTopics().addAll(Arrays.asList(topic));
@@ -80,7 +82,7 @@ public class PresentialmanagmentApplication implements CommandLineRunner{
 		teamRepository.saveAll(Arrays.asList(team,team2));
 		userRepository.saveAll(Arrays.asList(user,user2,user3));
 		cellphoneRepository.saveAll(Arrays.asList(cellphone,cellphone2,cellphone3,cellphone4,cellphone5,cellphone6,cellphone7));
-		topicRepository.saveAll(Arrays.asList(topic,topic2));
+		topicRepository.saveAll(Arrays.asList(topic,topic2,topic3, topic4));
 		requestRepository.saveAll(Arrays.asList(request, request2, request3));
 
 		
