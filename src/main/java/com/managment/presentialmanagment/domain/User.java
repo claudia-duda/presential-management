@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +27,7 @@ public class User implements Serializable{
 	private String password;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="id.user", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="id.user")
 	private Set<Request> requests = new HashSet<>();
 	
 	@ManyToOne
@@ -43,7 +42,7 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.team = team;
+		this.team = (team==null) ? null : team;
 	}
 	@JsonIgnore
 	public List<Cellphone> getcellphones(){
@@ -85,7 +84,7 @@ public class User implements Serializable{
 	public void setRequests(Set<Request> requests) {
 		this.requests = requests;
 	}
-
+	
 	public String getTeam() {
 		return team.getName();
 	}

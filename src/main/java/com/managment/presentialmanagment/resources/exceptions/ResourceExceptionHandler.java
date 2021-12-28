@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.managment.presentialmanagment.services.exceptions.DataIntegrityException;
 import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundException;
-
+//TODO create a general exception treatment
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
@@ -32,10 +32,9 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
 		
-		ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(),"Error in field validation" , System.currentTimeMillis());
+		ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(),"Error in field validation", System.currentTimeMillis());
 		for(FieldError x :e.getBindingResult().getFieldErrors()) {
-			error.addError(x.getField(), x.getDefaultMessage());
-			
+			error.addError(x.getField(), x.getDefaultMessage());	
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
