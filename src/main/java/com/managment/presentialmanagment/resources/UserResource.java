@@ -1,5 +1,6 @@
 package com.managment.presentialmanagment.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.managment.presentialmanagment.domain.User;
 import com.managment.presentialmanagment.dto.UserDTO;
+import com.managment.presentialmanagment.dto.UserNewDTO;
 import com.managment.presentialmanagment.services.UserService;
 
 @RestController
@@ -34,13 +37,16 @@ public class UserResource {
 		return ResponseEntity.ok().body(user);
 	}
 
-//	@RequestMapping(method = RequestMethod.POST)
-//	public ResponseEntity<Void> insert(@RequestBody User obj) {
-//		obj = service.insert(obj);
-//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-//		return ResponseEntity.created(uri).build();
-//	}
 
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody UserNewDTO objDto){
+		User obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto, @PathVariable Integer id){
 		User obj = service.fromDTO(objDto);

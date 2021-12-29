@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class User implements Serializable{
 	private String password;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="id.user")
+	@OneToMany(mappedBy="id.user", cascade = CascadeType.REFRESH)
 	private Set<Request> requests = new HashSet<>();
 	
 	@ManyToOne

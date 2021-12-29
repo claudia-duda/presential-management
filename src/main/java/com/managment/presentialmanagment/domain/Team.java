@@ -73,8 +73,8 @@ public class Team implements Serializable{
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void addUsers(User user) {
+		this.users.add(user);
 	}
 	
 	public Set<Topic> getTopics() {
