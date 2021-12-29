@@ -37,8 +37,9 @@ public class TeamService {
 	}
 	
 	public Team update(Team obj) {
-		find(obj.getId());
-		return repository.save(obj);
+		Team newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repository.save(newObj);
 		
 	}
 	
@@ -63,6 +64,11 @@ public class TeamService {
 	
 	public Team fromDTO(TeamDTO objDTO) {
 		return new Team(objDTO.getId(),objDTO.getName());
+	}
+	
+	private void updateData(Team newObj, Team obj) {
+		newObj.setName(obj.getName());
+		
 	}
 	
 }
