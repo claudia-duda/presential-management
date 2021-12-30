@@ -9,31 +9,38 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
+import com.managment.presentialmanagment.domain.enums.StateEnum;
 
 @Entity
 public class Request implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@JsonIgnore
 	@EmbeddedId
 	private RequestPK id = new RequestPK();
 	private Integer priority;
 	private LocalDateTime date;
 	private Integer category;
+	private Integer state;
 	private String optionalMessage;
-
+	private LocalDateTime limitDate;
+	// TODO implements a limit date?
 
 	public Request() {
 
 	}
 
-	public Request(User user, Cellphone cellphone, int priority, LocalDateTime date, int category, String optionalMessage) {
+	public Request(User user, Cellphone cellphone, int priority, LocalDateTime date, int category, 
+			int state,String optionalMessage, LocalDateTime limitDate) {
 		id.setUser(user);
 		id.setCellphone(cellphone);
 		this.priority = priority;
 		this.date = date;
 		this.category = category;
+		this.state = state;
 		this.optionalMessage = optionalMessage;
+		this.limitDate = limitDate;
 	}
 
 	public RequestPK getId() {
@@ -47,10 +54,19 @@ public class Request implements Serializable {
 	public User getUser() {
 		return id.getUser();
 	}
-	
+
+	public void setUser(User user) {
+		id.setUser(user);
+	}
+
 	public Cellphone getCellphone() {
 		return id.getCellphone();
 	}
+
+	public void setCellphone(Cellphone cellphone) {
+		id.setCellphone(cellphone);
+	}
+
 	public PriorityEnum getPriority() {
 		return PriorityEnum.toEnum(priority);
 	}
@@ -75,6 +91,14 @@ public class Request implements Serializable {
 		this.category = category.getCode();
 	}
 
+	public StateEnum getState() {
+		return StateEnum.toEnum(state);
+	}
+
+	public void setState(StateEnum state) {
+		this.state = state.getCode();
+	}
+
 	public String getOptionalMessage() {
 		return optionalMessage;
 	}
@@ -83,7 +107,14 @@ public class Request implements Serializable {
 		this.optionalMessage = optionalMessage;
 	}
 
-	
+	public LocalDateTime getLimitDate() {
+		return limitDate;
+	}
+
+	public void setLimitDate(LocalDateTime limitDate) {
+		this.limitDate = limitDate;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

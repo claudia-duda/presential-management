@@ -28,10 +28,6 @@ public class Cellphone implements Serializable{
 	private String imei1;
 	private String imei2;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
-	private Set<Request> requests = new HashSet<>();
-	
 	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
 	private Set<Topic> topics = new HashSet<>();
 
@@ -106,15 +102,7 @@ public class Cellphone implements Serializable{
 	public void setImei2(String imei2) {
 		this.imei2 = imei2;
 	}
-	@JsonIgnore
-	public Set<Request> getRequests() {
-		return requests;
-	}
-
-	public void setRequests(Set<Request> requests) {
-		this.requests = requests;
-	}
-
+	
 	@JsonIgnore
 	public Set<Topic> getTopics() {
 		return topics;

@@ -1,21 +1,13 @@
 package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User implements Serializable{
@@ -26,10 +18,6 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="id.user", cascade = CascadeType.REFRESH)
-	private Set<Request> requests = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "team_id")
@@ -45,14 +33,14 @@ public class User implements Serializable{
 		this.password = password;
 		this.team = (team==null) ? null : team;
 	}
-	@JsonIgnore
-	public List<Cellphone> getcellphones(){
-		List<Cellphone> cellphones= new ArrayList<>();
-		for (Request request: requests) {
-			cellphones.add(request.getCellphone());
-		}
-		return cellphones;
-	}
+//	@JsonIgnore
+//	public List<Cellphone> getcellphones(){
+//		List<Cellphone> cellphones= new ArrayList<>();
+//		for (Request request: requests) {
+//			cellphones.add(request.getCellphone());
+//		}
+//		return cellphones;
+//	}
 	public Integer getId() {
 		return id;
 	}
@@ -76,14 +64,6 @@ public class User implements Serializable{
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public Set<Request> getRequests() {
-		return requests;
-	}
-
-	public void setRequests(Set<Request> requests) {
-		this.requests = requests;
 	}
 	
 	public String getTeam() {
