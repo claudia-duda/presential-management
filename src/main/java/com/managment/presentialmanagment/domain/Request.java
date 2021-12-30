@@ -3,58 +3,73 @@ package com.managment.presentialmanagment.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
+import com.managment.presentialmanagment.domain.enums.StateEnum;
 
 @Entity
 public class Request implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	
+	@JsonIgnore
+	@EmbeddedId
+	private RequestPK id = new RequestPK();
 	private Integer priority;
 	private LocalDateTime date;
+	
 	private Integer category;
+	private Integer state;
+	
+	@Length(min=5, max=200, message="The lenght must be into 5 and 200 characters")
 	private String optionalMessage;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-
-	@ManyToOne
-	@JoinColumn(name = "cellphone_id", nullable = false)
-	private Cellphone cellphone;
+	
+	private LocalDateTime limitDate;
 
 	public Request() {
 
 	}
 
-	public Request(Integer id, PriorityEnum priority, LocalDateTime date, CategoryEnum category, String optionalMessage,
-			User user, Cellphone cellphone) {
-		this.id = id;
-		this.priority = priority.getCode();
+	public Request(User user, Cellphone cellphone, int priority, LocalDateTime date, int category, 
+			int state,String optionalMessage, LocalDateTime limitDate) {
+		id.setUser(user);
+		id.setCellphone(cellphone);
+		this.priority = priority;
 		this.date = date;
-		this.category = category.getCode();
+		this.category = category;
+		this.state = state;
 		this.optionalMessage = optionalMessage;
-		this.user = user;
-		this.setCellphone(cellphone);
+		this.limitDate = limitDate;
 	}
 
-	public Integer getId() {
+	public RequestPK getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(RequestPK id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return id.getUser();
+	}
+
+	public void setUser(User user) {
+		id.setUser(user);
+	}
+
+	public Cellphone getCellphone() {
+		return id.getCellphone();
+	}
+
+	public void setCellphone(Cellphone cellphone) {
+		id.setCellphone(cellphone);
 	}
 
 	public PriorityEnum getPriority() {
@@ -81,6 +96,14 @@ public class Request implements Serializable {
 		this.category = category.getCode();
 	}
 
+	public StateEnum getState() {
+		return StateEnum.toEnum(state);
+	}
+
+	public void setState(StateEnum state) {
+		this.state = state.getCode();
+	}
+
 	public String getOptionalMessage() {
 		return optionalMessage;
 	}
@@ -89,20 +112,12 @@ public class Request implements Serializable {
 		this.optionalMessage = optionalMessage;
 	}
 
-	public User getUser() {
-		return user;
+	public LocalDateTime getLimitDate() {
+		return limitDate;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Cellphone getCellphone() {
-		return cellphone;
-	}
-
-	public void setCellphone(Cellphone cellphone) {
-		this.cellphone = cellphone;
+	public void setLimitDate(LocalDateTime limitDate) {
+		this.limitDate = limitDate;
 	}
 
 	@Override

@@ -1,18 +1,14 @@
 package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User implements Serializable{
@@ -20,13 +16,12 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String name;
+	
+	@Column(unique = true)
 	private String email;
 	private String password;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="user")
-	private List<Request> requests = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "team_id")
@@ -40,9 +35,16 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.team = team;
+		this.team = (team==null) ? null : team;
 	}
-
+//	@JsonIgnore
+//	public List<Cellphone> getcellphones(){
+//		List<Cellphone> cellphones= new ArrayList<>();
+//		for (Request request: requests) {
+//			cellphones.add(request.getCellphone());
+//		}
+//		return cellphones;
+//	}
 	public Integer getId() {
 		return id;
 	}
@@ -68,14 +70,6 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	public List<Request> getRequests() {
-		return requests;
-	}
-
-	public void setRequests(List<Request> requests) {
-		this.requests = requests;
-	}
-
 	public String getTeam() {
 		return team.getName();
 	}

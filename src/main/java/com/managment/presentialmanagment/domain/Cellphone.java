@@ -2,13 +2,20 @@ package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,20 +26,23 @@ public class Cellphone implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotEmpty(message = "Mandatory filling")
 	private String model;
+	
+	@NotEmpty(message = "Mandatory filling")
+	@Length(min=3, max=5, message="The lenght must be into 3 and 5 characters")
 	private String HWVersion;
+	
+	@NotEmpty(message = "Mandatory filling")
+	@Column(unique = true)
 	private String code;
+	
 	private String imei1;
 	private String imei2;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "cellphone")
-	private List<Request> requests = new ArrayList<>();
-	
-	
-	//TODO review the way how has been using the topic into this class
-	@OneToMany(mappedBy = "id.cellphone")
-	private List<Topic> topics = new ArrayList<>();
+	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
+	private Set<Topic> topics = new HashSet<>();
+
 
 	public Cellphone() {
 		
@@ -104,22 +114,17 @@ public class Cellphone implements Serializable{
 	public void setImei2(String imei2) {
 		this.imei2 = imei2;
 	}
+	
 	@JsonIgnore
-	public List<Request> getRequests() {
-		return requests;
-	}
-
-	public void setRequests(List<Request> requests) {
-		this.requests = requests;
-	}
-
-	@JsonIgnore
-	public List<Topic> getTopics() {
+	public Set<Topic> getTopics() {
 		return topics;
 	}
 
-	public void setTopics(List<Topic> topics) {
+	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
+	}
+	public void addTopic(Topic topic) {
+		this.topics.add(topic);
 	}
 
 	@Override

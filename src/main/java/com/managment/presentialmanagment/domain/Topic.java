@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 public class Topic implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -23,11 +22,6 @@ public class Topic implements Serializable{
 	public Topic() {
 		
 	}
-//	public Topic(Topic topic) { //TODO review if this is the correct way in case of composition
-//		this.initialDateUsage = topic.getInitialDateUsage();
-//		this.finalDateUsage = topic.getFinalDateUsage();
-//		this.cellphone = topic.getCellphone();
-//	}
 	
 	public Topic( Cellphone cellphone, Team team, LocalDateTime initialDateUsage, LocalDateTime finalDateUsage) {
 		
@@ -60,6 +54,12 @@ public class Topic implements Serializable{
 	@JsonIgnore
 	public Team getTeam() {
 		return id.getTeam();
+	}
+	public void setCellphone(Cellphone cellphone) {
+		id.setCellphone(cellphone);
+	}
+	public void setTeam(Team team) {
+		id.setTeam(team);
 	}
 
 	@Override

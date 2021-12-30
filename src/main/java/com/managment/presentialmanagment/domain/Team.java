@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,10 +25,12 @@ public class Team implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(unique = true)
 	private String name;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "team")
+	@OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
 	private List<User> users = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "id.team")
@@ -42,6 +46,14 @@ public class Team implements Serializable{
 		this.id = id;
 		this.name = name;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@JsonIgnore
 	public List<Cellphone> getCellphones(){
 		List<Cellphone> list = new ArrayList<>();
@@ -64,8 +76,12 @@ public class Team implements Serializable{
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void addUsers(User user) {
+		this.users.add(user);
+	}
+	
+	public void removeUser(User user) {
+		this.users.remove(user);
 	}
 	
 	public Set<Topic> getTopics() {
@@ -75,7 +91,15 @@ public class Team implements Serializable{
 	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
-
+	
+	public void addTopic(Topic topic) {
+		this.topics.add(topic);
+	}
+	
+	public void removeTopic(Topic topic) {
+		this.topics.remove(topic);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

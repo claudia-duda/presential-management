@@ -2,6 +2,7 @@ package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ public class TopicPK implements Serializable{
     @JoinColumn(name = "cellphone_id", nullable = false)
 	private Cellphone cellphone;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "team_id", nullable = false)
 	private Team team;
 	
