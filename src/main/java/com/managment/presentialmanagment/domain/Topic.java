@@ -55,6 +55,12 @@ public class Topic implements Serializable{
 	public Team getTeam() {
 		return id.getTeam();
 	}
+	public void setCellphone(Cellphone cellphone) {
+		id.setCellphone(cellphone);
+	}
+	public void setTeam(Team team) {
+		id.setTeam(team);
+	}
 
 	@Override
 	public int hashCode() {

@@ -68,6 +68,7 @@ public class TeamService {
 	
 	private void updateData(Team newObj, Team obj) {
 		newObj.setName(obj.getName());
+		newObj.setTopics(obj.getTopics());
 		
 	}
 	

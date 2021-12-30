@@ -84,6 +84,9 @@ public class Team implements Serializable{
 	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
+	public void addTopic(Topic topic) {
+		this.topics.add(topic);
+	}
 
 	@Override
 	public int hashCode() {
