@@ -77,6 +77,10 @@ public class Team implements Serializable{
 		this.users.add(user);
 	}
 	
+	public void removeUser(User user) {
+		this.users.remove(user);
+	}
+	
 	public Set<Topic> getTopics() {
 		return topics;
 	}
@@ -84,10 +88,15 @@ public class Team implements Serializable{
 	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
+	
 	public void addTopic(Topic topic) {
 		this.topics.add(topic);
 	}
-
+	
+	public void removeTopic(Topic topic) {
+		this.topics.remove(topic);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

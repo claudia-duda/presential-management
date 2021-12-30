@@ -41,7 +41,7 @@ public class TeamResource {
 		return ResponseEntity.ok().body(Team);
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody TeamDTO objDto){
+	public ResponseEntity<Void> insertnewTeam(@Valid @RequestBody TeamDTO objDto){
 		
 		Team obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
@@ -75,6 +75,15 @@ public class TeamResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+//	@RequestMapping(value = "/{id}/{id}", method = RequestMethod.DELETE)
+//	public ResponseEntity<Void> deleteTopic(@PathVariable Integer idTeam, @PathVariable Integer idTopic){
+//		Team team = service.find(idTeam);
+//		
+//		topicService.delete(idTopic);
+//		
+//		return ResponseEntity.noContent().build();
+//	}
 	
 	@RequestMapping(method= RequestMethod.GET)
 	public ResponseEntity<List<TeamDTO>> findAll() {
