@@ -50,12 +50,12 @@ public class PresentialmanagmentApplication implements CommandLineRunner {
 		User user3 = new User(null, "camila", "camila@hotmail.com", "123", team2);
 
 		Cellphone cellphone = new Cellphone(null, "cebu", "pvt", "CEBU-03", "123456789", "987456321");
-		Cellphone cellphone2 = new Cellphone(null, "tahoe", "evt", "TAHOE-03", "123456789", "987456321");
-		Cellphone cellphone3 = new Cellphone(null, "milan", "evt", "TAHOE-03", "123456789", "987456321");
-		Cellphone cellphone4 = new Cellphone(null, "berlin", "evt", "TAHOE-03", "123456789", "987456321");
-		Cellphone cellphone5 = new Cellphone(null, "racer-turbo", "evt", "TAHOE-03", "123456789", "987456321");
-		Cellphone cellphone6 = new Cellphone(null, "cat2", "evt", "TAHOE-03", "123456789", "987456321");
-		Cellphone cellphone7 = new Cellphone(null, "omde", "evt", "TAHOE-03", "123456789", "987456321");
+		Cellphone cellphone2 = new Cellphone(null, "tahoe", "evt", "TAHOE-01", "123456789", "987456321");
+		Cellphone cellphone3 = new Cellphone(null, "milan", "evt", "TAHOE-16", "123456789", "987456321");
+		Cellphone cellphone4 = new Cellphone(null, "berlin", "evt", "TAHOE-14", "123456789", "987456321");
+		Cellphone cellphone5 = new Cellphone(null, "racer-turbo", "evt", "TAHOE-85", "123456789", "987456321");
+		Cellphone cellphone6 = new Cellphone(null, "cat2", "evt", "TAHOE-74", "123456789", "987456321");
+		Cellphone cellphone7 = new Cellphone(null, "omde", "evt", "TAHOE-98", "123456789", "987456321");
 
 		Request request = new Request(user, cellphone, PriorityEnum.RED.getCode(), LocalDateTime.now().plusMinutes(20),
 				CategoryEnum.HEADSET.getCode(), StateEnum.PENDING.getCode(), null, null);

@@ -29,6 +29,11 @@ public class CellphoneService {
 	} 
 	
 	public Cellphone insert(Cellphone obj) {
+		Cellphone cellphone = repository.findByCode(obj.getCode());
+
+		if(cellphone != null) {
+			throw new DataIntegrityException("The cellphone's code is already saved on database");
+		}
 		obj.setId(null);
 		return repository.save(obj);
 		

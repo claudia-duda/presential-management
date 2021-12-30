@@ -38,6 +38,12 @@ public class UserService {
 	@Transactional
 	public User insert(User obj) {
 		obj.setId(null);
+		
+		User user = repository.findByEmail(obj.getEmail());
+		
+		if(user != null) {
+			throw new DataIntegrityException("The email is already saved on database");
+		}
 		return repository.save(obj);
 		
 	}

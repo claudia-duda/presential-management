@@ -34,6 +34,8 @@ public class RequestService {
 	private UserService userService;
 	
 	//TODO would be a good idea implements a generic service?
+	
+	//TODO find and delete needs to be implemented
 	public Request find(Integer id) { 
 		Optional<Request> obj = repository.findById(id); 
 		return obj.orElseThrow(() ->  new ObjectNotFoundException(

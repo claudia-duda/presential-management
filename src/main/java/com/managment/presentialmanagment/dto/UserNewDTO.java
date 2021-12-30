@@ -14,7 +14,7 @@ public class UserNewDTO implements Serializable{
 	@Length(min=5, max=120, message="The lenght must be into 5 and 120 characters")
 	private String name;
 	
-	
+	@NotEmpty(message = "Mandatory filling")
 	@Email(message = "Invalid Email")
 	private String email;
 	

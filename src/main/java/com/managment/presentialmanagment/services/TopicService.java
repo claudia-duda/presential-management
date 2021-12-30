@@ -29,7 +29,7 @@ public class TopicService {
 	
 	@Autowired
 	private TeamService teamService;
-	
+	//TODO find and delete needs to be implemented
 	public Topic find(Integer id) { 
 		Optional<Topic> obj = repository.findById(id); 
 		return obj.orElseThrow(() ->  new ObjectNotFoundException(
@@ -45,13 +45,12 @@ public class TopicService {
 	public Topic insert(Topic obj) {
 		
 		Cellphone cellphone = obj.getCellphone();
-		
+		cellphone.addTopic(obj);
 		cellphoneRepository.save(cellphone);
 		
 		obj.setInitialDateUsage(LocalDateTime.now());
 		
 		Team team = teamService.find(obj.getTeam().getId());
-	
 		team.addTopic(obj);
 		
 		obj = repository.save(obj);

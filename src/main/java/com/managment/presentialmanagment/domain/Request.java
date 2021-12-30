@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
@@ -21,9 +23,13 @@ public class Request implements Serializable {
 	private RequestPK id = new RequestPK();
 	private Integer priority;
 	private LocalDateTime date;
+	
 	private Integer category;
 	private Integer state;
+	
+	@Length(min=5, max=200, message="The lenght must be into 5 and 200 characters")
 	private String optionalMessage;
+	
 	private LocalDateTime limitDate;
 
 	public Request() {

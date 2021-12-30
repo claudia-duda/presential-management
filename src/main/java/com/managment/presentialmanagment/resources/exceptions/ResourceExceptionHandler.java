@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.managment.presentialmanagment.services.exceptions.DataIntegrityException;
 import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundException;
 //TODO create a general exception treatment
+//TODO create or correct exception to valid fields requeriments
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	

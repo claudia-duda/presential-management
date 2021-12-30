@@ -31,6 +31,13 @@ public class TeamService {
 	} 
 	
 	public Team insert(Team obj) {
+		
+		Team team = repository.findByName(obj.getName());
+		
+		if(team != null) {
+			throw new DataIntegrityException("This team is already saved on database");
+		}
+		
 		obj.setId(null);
 		return repository.save(obj);
 		
