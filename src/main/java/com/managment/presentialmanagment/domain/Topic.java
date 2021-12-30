@@ -22,11 +22,6 @@ public class Topic implements Serializable{
 	public Topic() {
 		
 	}
-//	public Topic(Topic topic) { //TODO review if this is the correct way in case of composition
-//		this.initialDateUsage = topic.getInitialDateUsage();
-//		this.finalDateUsage = topic.getFinalDateUsage();
-//		this.cellphone = topic.getCellphone();
-//	}
 	
 	public Topic( Cellphone cellphone, Team team, LocalDateTime initialDateUsage, LocalDateTime finalDateUsage) {
 		

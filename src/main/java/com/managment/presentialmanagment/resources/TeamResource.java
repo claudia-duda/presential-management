@@ -66,7 +66,7 @@ public class TeamResource {
 	
 		return ResponseEntity.ok().body(listDto);
 	}
-	//TODO comunication between services
+	
 	@RequestMapping(value = "/page", method= RequestMethod.GET)
 	public ResponseEntity<Page<TeamDTO>> findPage(
 			@RequestParam(value = "page",  defaultValue = "0") Integer page, 

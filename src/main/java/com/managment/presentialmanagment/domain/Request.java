@@ -25,7 +25,6 @@ public class Request implements Serializable {
 	private Integer state;
 	private String optionalMessage;
 	private LocalDateTime limitDate;
-	// TODO implements a limit date?
 
 	public Request() {
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.managment.presentialmanagment.domain.Topic;
 import com.managment.presentialmanagment.repositories.TopicRepository;
-//TODO comunication between services(team and topics)
+
 @Service
 public class TopicService {
 	@Autowired

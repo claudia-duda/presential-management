@@ -2,12 +2,25 @@ package com.managment.presentialmanagment.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UserNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
+	@NotEmpty(message = "Mandatory filling")
+	@Length(min=5, max=120, message="The lenght must be into 5 and 120 characters")
 	private String name;
+	
+	
+	@Email(message = "Invalid Email")
 	private String email;
+	
+	@NotEmpty(message = "Mandatory filling")
 	private String password;
+	
 	
 	private Integer teamId;
 
