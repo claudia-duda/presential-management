@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.managment.presentialmanagment.domain.User;
+import com.managment.presentialmanagment.services.validation.UserUpdate;
 
+@UserUpdate
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
