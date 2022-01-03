@@ -37,6 +37,7 @@ public class DBService {
 	public void instantiateTestDatabase() {
 		Team team = new Team(null, "manual");
 		Team team2 = new Team(null, "pre-cert");
+		Team team3 = new Team(null, "CBS");
 
 		User user = new User(null, "Cláudia", "claudia@hotmail.com", "123", team);
 		User user2 = new User(null, "Eric", "erica@hotmail.com", "123", team);
@@ -76,7 +77,7 @@ public class DBService {
 		team.getTopics().addAll(Arrays.asList(topic2));
 		team2.getTopics().addAll(Arrays.asList(topic));
 
-		teamRepository.saveAll(Arrays.asList(team, team2));
+		teamRepository.saveAll(Arrays.asList(team, team2, team3));
 		userRepository.saveAll(Arrays.asList(user, user2, user3));
 		cellphoneRepository.saveAll(
 				Arrays.asList(cellphone, cellphone2, cellphone3, cellphone4, cellphone5, cellphone6, cellphone7));
