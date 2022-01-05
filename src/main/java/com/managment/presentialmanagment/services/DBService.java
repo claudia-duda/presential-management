@@ -10,7 +10,7 @@ import com.managment.presentialmanagment.domain.Cellphone;
 import com.managment.presentialmanagment.domain.Request;
 import com.managment.presentialmanagment.domain.Team;
 import com.managment.presentialmanagment.domain.Topic;
-import com.managment.presentialmanagment.domain.User;
+import com.managment.presentialmanagment.domain.Client;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 import com.managment.presentialmanagment.domain.enums.StateEnum;
@@ -18,13 +18,13 @@ import com.managment.presentialmanagment.repositories.CellphoneRepository;
 import com.managment.presentialmanagment.repositories.RequestRepository;
 import com.managment.presentialmanagment.repositories.TeamRepository;
 import com.managment.presentialmanagment.repositories.TopicRepository;
-import com.managment.presentialmanagment.repositories.UserRepository;
+import com.managment.presentialmanagment.repositories.ClientRepository;
 
 @Service
 public class DBService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private ClientRepository userRepository;
 	@Autowired
 	private RequestRepository requestRepository;
 	@Autowired
@@ -39,9 +39,9 @@ public class DBService {
 		Team team2 = new Team(null, "pre-cert");
 		Team team3 = new Team(null, "CBS");
 
-		User user = new User(null, "Cláudia", "claudia@hotmail.com", "123", team);
-		User user2 = new User(null, "Eric", "erica@hotmail.com", "123", team);
-		User user3 = new User(null, "camila", "camila@hotmail.com", "123", team2);
+		Client user = new Client(null, "Cláudia", "claudia@hotmail.com", "123", team);
+		Client user2 = new Client(null, "Eric", "erica@hotmail.com", "123", team);
+		Client user3 = new Client(null, "camila", "camila@hotmail.com", "123", team2);
 
 		Cellphone cellphone = new Cellphone(null, "cebu", "pvt", "CEBU-03", "123456789", "987456321");
 		Cellphone cellphone2 = new Cellphone(null, "tahoe", "evt", "TAHOE-01", "123456789", "987456321");
