@@ -12,44 +12,39 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.managment.presentialmanagment.domain.Team;
-import com.managment.presentialmanagment.domain.User;
-import com.managment.presentialmanagment.dto.UserDTO;
-import com.managment.presentialmanagment.dto.UserNewDTO;
-import com.managment.presentialmanagment.repositories.UserRepository;
+import com.managment.presentialmanagment.domain.Client;
+import com.managment.presentialmanagment.dto.ClientDTO;
+import com.managment.presentialmanagment.dto.ClientNewDTO;
+import com.managment.presentialmanagment.repositories.ClientRepository;
 import com.managment.presentialmanagment.services.exceptions.DataIntegrityException;
 import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class UserService {
+public class ClientService {
 	
 	@Autowired
-	private UserRepository repository;
+	private ClientRepository repository;
 	
 	@Autowired
 	private TeamService teamService;
 	//TODO would be a good idea implements a generic service?
-	public User find(Integer id) { 
-		Optional<User> obj = repository.findById(id); 
+	public Client find(Integer id) { 
+		Optional<Client> obj = repository.findById(id); 
 		return obj.orElseThrow(() ->  new ObjectNotFoundException(
-				"Object not found! Id: "+ id +", Type: " + User.class.getName()));
+				"Object not found! Id: "+ id +", Type: " + Client.class.getName()));
 	
 	
 	} 
 	@Transactional
-	public User insert(User obj) {
+	public Client insert(Client obj) {
 		obj.setId(null);
 		
-		User user = repository.findByEmail(obj.getEmail());
-		
-		if(user != null) {
-			throw new DataIntegrityException("The email is already saved on database");
-		}
 		return repository.save(obj);
 		
 	}
 
-	public User update(User obj) {
-		User newObj = find(obj.getId());
+	public Client update(Client obj) {
+		Client newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repository.save(newObj);
 		
@@ -64,23 +59,23 @@ public class UserService {
 		}
 	}
 	
-	public List<User> findAll(){
+	public List<Client> findAll(){
 		return repository.findAll();
 	}
 	
-	public Page<User> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+	public Page<Client> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
 	}
 	
-	public User fromDTO(UserDTO objDTO) {
-		return new User(objDTO.getId(),objDTO.getName(),objDTO.getEmail(),null, null);
+	public Client fromDTO(ClientDTO objDTO) {
+		return new Client(objDTO.getId(),objDTO.getName(),objDTO.getEmail(),null, null);
 	}
 	
-	public User fromDTO(UserNewDTO objDTO) {
+	public Client fromDTO(ClientNewDTO objDTO) {
 		Team team = teamService.find(objDTO.getTeamId());
-		User newUser = new User(null, objDTO.getName(), objDTO.getEmail(), objDTO.getPassword(), team);
+		Client newUser = new Client(null, objDTO.getName(), objDTO.getEmail(), objDTO.getPassword(), team);
 		
 		team.addUsers(newUser);
 		teamService.update(team);
@@ -88,7 +83,7 @@ public class UserService {
 		return newUser;
 	}
 
-	private void updateData(User newObj, User obj) {
+	private void updateData(Client newObj, Client obj) {
 		newObj.setEmail(obj.getEmail());
 		newObj.setName(obj.getName());
 		

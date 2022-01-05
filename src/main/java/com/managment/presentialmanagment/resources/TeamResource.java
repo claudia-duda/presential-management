@@ -107,4 +107,17 @@ public class TeamResource {
 		
 		return ResponseEntity.ok().body(listDto);
 	}
+	//TODO a search to cellphone name to alll topics
+//	@RequestMapping(value = "/{id}/page", method= RequestMethod.GET)
+//	public ResponseEntity<Page<Topic>> findPage(
+//			@PathVariable Integer id,
+//			@RequestParam(value = "page",  defaultValue = "0") Integer page, 
+//			@RequestParam(value = "linesPerPage",  defaultValue = "24") Integer linesPerPage, 
+//			@RequestParam(value = "orderBy",  defaultValue = "initialDateUsage") String orderBy, 
+//			@RequestParam(value = "direction",  defaultValue = "ASC") String direction) {
+//		
+//		Page<Topic> list = topicService.search(id, page,linesPerPage, orderBy, direction);
+//		
+//		return ResponseEntity.ok().body(list);
+//	}
 }

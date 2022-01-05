@@ -49,7 +49,7 @@ public class RequestResource {
 	public ResponseEntity<Page<Request>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "date") String orderBy,
+			@RequestParam(value = "orderBy", defaultValue = "priority") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
 		Page<Request> list = service.findPage(page, linesPerPage, orderBy, direction);

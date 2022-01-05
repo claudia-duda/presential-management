@@ -17,48 +17,50 @@ import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundExcep
 
 @Service
 public class CellphoneService {
-	
+
 	@Autowired
 	private CellphoneRepository repository;
-	//TODO would be a good idea implements a generic service?
-	public Cellphone find(Integer id) { 
-		Optional<Cellphone> obj = repository.findById(id); 
-		return obj.orElseThrow(() ->  new ObjectNotFoundException(
-				"Object not found! Id: "+ id +", Type: " + Cellphone.class.getName()));
-	
-	} 
-	
+
+	// TODO would be a good idea implements a generic service?
+	public Cellphone find(Integer id) {
+		Optional<Cellphone> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Object not found! Id: " + id + ", Type: " + Cellphone.class.getName()));
+
+	}
+
 	public Cellphone insert(Cellphone obj) {
 		Cellphone cellphone = repository.findByCode(obj.getCode());
 
-		if(cellphone != null) {
+		if (cellphone != null) {
 			throw new DataIntegrityException("The cellphone's code is already saved on database");
 		}
 		obj.setId(null);
 		return repository.save(obj);
-		
+
 	}
-	
+
 	public Cellphone update(Cellphone obj) {
 		find(obj.getId());
-		return repository.save(obj);
 		
+		return repository.save(obj);
+
 	}
-	
+
 	public void delete(Integer id) {
 		find(id);
-		try{
+		try {
 			repository.deleteById(id);
-		}catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Its no possible delete a cellphone who is into a topic");
 		}
 	}
-	
-	public List<Cellphone> findAll(){
+
+	public List<Cellphone> findAll() {
 		return repository.findAll();
 	}
-	
-	public Page<Cellphone> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+
+	public Page<Cellphone> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
 	}

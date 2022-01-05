@@ -1,4 +1,4 @@
- package com.managment.presentialmanagment.dto;
+package com.managment.presentialmanagment.dto;
 
 import java.io.Serializable;
 
@@ -7,12 +7,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.managment.presentialmanagment.domain.User;
-
-public class UserDTO implements Serializable{
+public class ClientNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-	private Integer id;
 	
 	@NotEmpty(message = "Mandatory filling")
 	@Length(min=5, max=120, message="The lenght must be into 5 and 120 characters")
@@ -22,32 +18,48 @@ public class UserDTO implements Serializable{
 	@Email(message = "Invalid Email")
 	private String email;
 	
-	public UserDTO() {
-		
-	}
-	public UserDTO(User obj) {
-		id = obj.getId();
-		name = obj.getName();
-		email = obj.getEmail();
-	}
+	@NotEmpty(message = "Mandatory filling")
+	private String password;
 	
-	public Integer getId() {
-		return id;
+	
+	private Integer teamId;
+
+	public ClientNewDTO() {
+	
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(Integer teamId) {
+		this.teamId = teamId;
+	}
+
+	
 
 }

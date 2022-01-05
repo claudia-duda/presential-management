@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.managment.presentialmanagment.domain.Cellphone;
 import com.managment.presentialmanagment.domain.Request;
-import com.managment.presentialmanagment.domain.User;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 import com.managment.presentialmanagment.domain.enums.StateEnum;
 import com.managment.presentialmanagment.repositories.RequestRepository;
@@ -30,8 +29,6 @@ public class RequestService {
 	@Autowired
 	private CellphoneService cellphoneService;
 	
-	@Autowired
-	private UserService userService;
 	
 	//TODO would be a good idea implements a generic service?
 	
@@ -58,9 +55,6 @@ public class RequestService {
 			obj.setPriority(PriorityEnum.GREEN);
 		}
 		obj.setState(StateEnum.PENDING);
-	
-		User user = userService.find(obj.getUser().getId());		
-		userService.update(user);
 		
 		obj = repository.save(obj);
 		return obj;
@@ -82,4 +76,5 @@ public class RequestService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
 	}
+	
 }

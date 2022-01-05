@@ -31,7 +31,7 @@ public class Team implements Serializable{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
-	private List<User> users = new ArrayList<>();
+	private List<Client> clients = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "id.team")
 	@ElementCollection
@@ -72,16 +72,16 @@ public class Team implements Serializable{
 		this.name = name;
 	}
 	
-	public List<User> getUsers() {
-		return users;
+	public List<Client> getUsers() {
+		return clients;
 	}
 
-	public void addUsers(User user) {
-		this.users.add(user);
+	public void addUsers(Client user) {
+		this.clients.add(user);
 	}
 	
-	public void removeUser(User user) {
-		this.users.remove(user);
+	public void removeUser(Client user) {
+		this.clients.remove(user);
 	}
 	
 	public Set<Topic> getTopics() {

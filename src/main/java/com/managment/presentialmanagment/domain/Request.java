@@ -36,7 +36,7 @@ public class Request implements Serializable {
 
 	}
 
-	public Request(User user, Cellphone cellphone, int priority, LocalDateTime date, int category, 
+	public Request(Client user, Cellphone cellphone, int priority, LocalDateTime date, int category, 
 			int state,String optionalMessage, LocalDateTime limitDate) {
 		id.setUser(user);
 		id.setCellphone(cellphone);
@@ -56,11 +56,11 @@ public class Request implements Serializable {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public Client getUser() {
 		return id.getUser();
 	}
 
-	public void setUser(User user) {
+	public void setUser(Client user) {
 		id.setUser(user);
 	}
 

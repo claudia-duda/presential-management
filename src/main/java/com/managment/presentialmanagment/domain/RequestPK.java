@@ -14,17 +14,17 @@ public class RequestPK implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private Client user;
 
 	@ManyToOne
 	@JoinColumn(name = "cellphone_id", nullable = false)
 	private Cellphone cellphone;
 
-	public User getUser() {
+	public Client getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Client user) {
 		this.user = user;
 	}
 
