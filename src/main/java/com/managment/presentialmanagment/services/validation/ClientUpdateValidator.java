@@ -11,25 +11,25 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.managment.presentialmanagment.domain.User;
-import com.managment.presentialmanagment.dto.UserDTO;
-import com.managment.presentialmanagment.repositories.UserRepository;
+import com.managment.presentialmanagment.domain.Client;
+import com.managment.presentialmanagment.dto.ClientDTO;
+import com.managment.presentialmanagment.repositories.ClientRepository;
 import com.managment.presentialmanagment.resources.exceptions.FieldMessage;
 
-public class UserUpdateValidator implements ConstraintValidator<UserUpdate, UserDTO>{
+public class ClientUpdateValidator implements ConstraintValidator<ClientUpdate, ClientDTO>{
 	
 	@Autowired
 	private HttpServletRequest request;
 	
 	@Autowired
-	private UserRepository repository;
+	private ClientRepository repository;
 	
 	@Override
-	public void initialize(UserUpdate ann) {
+	public void initialize(ClientUpdate ann) {
 	}
 
 	@Override
-	public boolean isValid(UserDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(ClientDTO objDto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
@@ -37,7 +37,7 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdate, User
 		
 		List<FieldMessage> list = new ArrayList<>();
 		
-		User aux = repository.findByEmail(objDto.getEmail());
+		Client aux = repository.findByEmail(objDto.getEmail());
 		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email", "Email is already saved"));
 		}

@@ -11,10 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class User implements Serializable{
+public class Client implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private Integer id;
 	
 	private String name;
@@ -26,11 +27,12 @@ public class User implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
-	public User() {
+	
+	public Client() {
 		
 	}
 	
-	public User(Integer id, String name, String email, String password,Team team) {
+	public Client(Integer id, String name, String email, String password,Team team) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -97,7 +99,7 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		User other = (User) obj;
+		Client other = (Client) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;

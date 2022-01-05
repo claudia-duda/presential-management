@@ -7,11 +7,11 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.managment.presentialmanagment.domain.User;
-import com.managment.presentialmanagment.services.validation.UserUpdate;
+import com.managment.presentialmanagment.domain.Client;
+import com.managment.presentialmanagment.services.validation.ClientUpdate;
 
-@UserUpdate
-public class UserDTO implements Serializable{
+@ClientUpdate
+public class ClientDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
@@ -24,10 +24,10 @@ public class UserDTO implements Serializable{
 	@Email(message = "Invalid Email")
 	private String email;
 	
-	public UserDTO() {
+	public ClientDTO() {
 		
 	}
-	public UserDTO(User obj) {
+	public ClientDTO(Client obj) {
 		id = obj.getId();
 		name = obj.getName();
 		email = obj.getEmail();

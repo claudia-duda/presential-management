@@ -17,30 +17,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.managment.presentialmanagment.domain.User;
-import com.managment.presentialmanagment.dto.UserDTO;
-import com.managment.presentialmanagment.dto.UserNewDTO;
-import com.managment.presentialmanagment.services.UserService;
+import com.managment.presentialmanagment.domain.Client;
+import com.managment.presentialmanagment.dto.ClientDTO;
+import com.managment.presentialmanagment.dto.ClientNewDTO;
+import com.managment.presentialmanagment.services.ClientService;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/clients")
+public class ClientResource {
 
 	@Autowired
-	private UserService service;
+	private ClientService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<User> find(@PathVariable Integer id) {
+	public ResponseEntity<Client> find(@PathVariable Integer id) {
 
-		User user = service.find(id);
+		Client user = service.find(id);
 
 		return ResponseEntity.ok().body(user);
 	}
 
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody UserNewDTO objDto){
-		User obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO objDto){
+		Client obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -48,8 +48,8 @@ public class UserResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto, @PathVariable Integer id){
-		User obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody ClientDTO objDto, @PathVariable Integer id){
+		Client obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -62,24 +62,24 @@ public class UserResource {
 	}
 	
 	@RequestMapping(method= RequestMethod.GET)
-	public ResponseEntity<List<UserDTO>> findAll() {
+	public ResponseEntity<List<ClientDTO>> findAll() {
 		
-		List<User> list = service.findAll();
-		List<UserDTO> listDto  = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
+		List<Client> list = service.findAll();
+		List<ClientDTO> listDto  = list.stream().map(obj -> new ClientDTO(obj)).collect(Collectors.toList());
 	
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(value = "/page", method= RequestMethod.GET)
-	public ResponseEntity<Page<UserDTO>> findPage(
+	public ResponseEntity<Page<ClientDTO>> findPage(
 			@RequestParam(value = "page",  defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage",  defaultValue = "24") Integer linesPerPage, 
 			@RequestParam(value = "orderBy",  defaultValue = "name") String orderBy, 
 			@RequestParam(value = "direction",  defaultValue = "ASC") String direction) {
 		
-		Page<User> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<Client> list = service.findPage(page, linesPerPage, orderBy, direction);
 		
-		Page<UserDTO> listDto  = list.map(obj -> new UserDTO(obj));
+		Page<ClientDTO> listDto  = list.map(obj -> new ClientDTO(obj));
 		
 		return ResponseEntity.ok().body(listDto);
 	}

@@ -36,10 +36,6 @@ public class TopicService {
 				"Object not found! Id: "+ id +", Type: " + Topic.class.getName()));
 	
 	} 
-	public Page<Topic> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repository.findAll(pageRequest);
-	}
 	
 	@Transactional
 	public Topic insert(Topic obj) {
@@ -65,4 +61,13 @@ public class TopicService {
 			throw new DataIntegrityException("Problems into Topic's relationships");
 		}
 	}
+	public Page<Topic> search(Integer teamId, Integer page, Integer linesPerPage, 
+			String orderBy, String direction){ 
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		
+		Team team = teamService.find(teamId);
+		
+		return repository.findByTeam(team, pageRequest);
+	}
+	
 }

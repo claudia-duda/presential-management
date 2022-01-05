@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-public class UserNewDTO implements Serializable{
+public class ClientNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Mandatory filling")
@@ -24,7 +24,7 @@ public class UserNewDTO implements Serializable{
 	
 	private Integer teamId;
 
-	public UserNewDTO() {
+	public ClientNewDTO() {
 	
 	}
 

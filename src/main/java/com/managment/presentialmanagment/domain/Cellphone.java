@@ -19,7 +19,6 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 public class Cellphone implements Serializable{
 	private static final long serialVersionUID = 1L;

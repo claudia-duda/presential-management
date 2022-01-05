@@ -29,8 +29,6 @@ public class RequestService {
 	@Autowired
 	private CellphoneService cellphoneService;
 	
-	@Autowired
-	private UserService userService;
 	
 	//TODO would be a good idea implements a generic service?
 	
@@ -78,4 +76,5 @@ public class RequestService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
 	}
+	
 }
