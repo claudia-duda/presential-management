@@ -1,6 +1,7 @@
 package com.managment.presentialmanagment.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,13 +62,15 @@ public class TopicService {
 			throw new DataIntegrityException("Problems into Topic's relationships");
 		}
 	}
-	public Page<Topic> search(Integer teamId, Integer page, Integer linesPerPage, 
+	public Page<Topic> search(Integer teamId, String model, Integer page, Integer linesPerPage, 
 			String orderBy, String direction){ 
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		
 		Team team = teamService.find(teamId);
+		List<Cellphone> cellphones = team.getCellphones();
 		
-		return repository.findByTeam(team, pageRequest);
+		return repository.search(model,cellphones,pageRequest);
+		
 	}
 	
 }
