@@ -2,6 +2,7 @@ package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -148,6 +149,32 @@ public class Request implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
+		StringBuilder builder = new StringBuilder();
+		builder.append(",Date: ");
+		builder.append(date.format(formatter));
+		builder.append("Priority: ");
+		builder.append(getPriority().getDescription());
+		builder.append(",Category: ");
+		builder.append(getCategory().getDescription());
+		builder.append(",Limit Date: ");
+		builder.append(limitDate);		
+		builder.append(",DUT code: ");
+		builder.append(getCellphone().getCode());
+		builder.append(",Optional Message: ");
+		builder.append(optionalMessage);
+		builder.append(",State: ");
+		builder.append(getState().getDescription());
+		builder.append(",Requested by: ");	
+		builder.append(getUser().getName());
+		builder.append("\n");
+		return builder.toString();
 	}
 
 }

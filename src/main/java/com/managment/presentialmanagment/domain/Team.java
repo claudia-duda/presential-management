@@ -129,6 +129,20 @@ public class Team implements Serializable{
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Team: ");
+		builder.append(name);
+		builder.append(", Topics: ");
+		for( Topic topic: topics) {
+			builder.append(topic.toString());
+		}
+		builder.append(topics.toString());
+		builder.append("\n");
+		return builder.toString();
+	}
 	
 }
 

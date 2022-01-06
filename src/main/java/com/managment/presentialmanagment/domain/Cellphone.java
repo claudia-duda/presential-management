@@ -155,6 +155,19 @@ public class Cellphone implements Serializable{
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Model: ");
+		builder.append(model);
+		builder.append(",HW Version: ");
+		builder.append(HWVersion);
+		builder.append(",Code: ");
+		builder.append(code);
+		builder.append("\n");
+		return builder.toString();
+	}
 	
 	
 }

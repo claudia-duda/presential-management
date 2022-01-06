@@ -2,6 +2,7 @@ package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -90,6 +91,18 @@ public class Topic implements Serializable{
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Model DUT: "+getCellphone().getModel());
+		builder.append(", Initial Date Usage: "+ initialDateUsage.format(formatter));
+		builder.append(", Final Date Usage: "+ finalDateUsage.format(formatter));
+		builder.append("\n");
+		return builder.toString();
 	}
 	
 	

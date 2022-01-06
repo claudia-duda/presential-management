@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.managment.presentialmanagment.domain.Cellphone;
 import com.managment.presentialmanagment.domain.Request;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 import com.managment.presentialmanagment.domain.enums.StateEnum;
@@ -29,6 +28,8 @@ public class RequestService {
 	@Autowired
 	private CellphoneService cellphoneService;
 	
+	@Autowired
+	private ClientService clientService;
 	
 	//TODO would be a good idea implements a generic service?
 	
@@ -40,14 +41,17 @@ public class RequestService {
 	
 	} 
 	
+	//TODO would be a good idea insert a cellphone into request only using the id? and throw a exception if it wasn't create yet
+	// or let the user put the whole object and if it doesn't exist
 	@Transactional
 	public Request insert(Request obj) {
 		
-		Cellphone cellphone = obj.getCellphone();
+		//Cellphone cellphone = obj.getCellphone();
 		
-		if(cellphone.getId() == null) {
-			cellphoneService.insert(cellphone);
-		}
+		//if(cellphone.getId() == null) {
+		//	cellphoneService.insert(cellphone);
+		//}
+		obj.setCellphone(cellphoneService.find(obj.getCellphone().getId()));
 		
 		obj.setDate(LocalDateTime.now());
 		
@@ -55,8 +59,9 @@ public class RequestService {
 			obj.setPriority(PriorityEnum.GREEN);
 		}
 		obj.setState(StateEnum.PENDING);
-		
+		obj.setUser(clientService.find(obj.getUser().getId()));
 		obj = repository.save(obj);
+	
 		return obj;
 	}
 	
