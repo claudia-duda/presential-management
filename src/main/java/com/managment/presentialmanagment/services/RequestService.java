@@ -31,6 +31,9 @@ public class RequestService {
 	@Autowired
 	private ClientService clientService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	//TODO would be a good idea implements a generic service?
 	
 	//TODO find and delete needs to be implemented
@@ -61,7 +64,7 @@ public class RequestService {
 		obj.setState(StateEnum.PENDING);
 		obj.setUser(clientService.find(obj.getUser().getId()));
 		obj = repository.save(obj);
-	
+		emailService.sendRequestWaiting(obj);
 		return obj;
 	}
 	
