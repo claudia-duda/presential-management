@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title th:remove="all">Request Confirmation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div>
+	<!--
+		<h3>
+			Date and time: <span th:text="${#temporals.format(request.data, 'dd-MM-yyyy HH:mm')}"></span>
+		</h3>
+	-->
+		<h1>
+			Priority: <span th:text="${request.getPriority.getDescription}"> </span>
+		</h1>
+		<p>
+			Requested by: <span th:text="${request.id.client.name}"></span>
+		</p>
+		<p>
+			Optional Message: <span th:text="${request.optionalMessage}"></span>
+		</p>
+		<p>
+			State: <span th:text="${request.getState.getDescription}"></span>
+		</p>
+		<p>
+			LimitDate: <span th:text="${request.limitDate}"></span>
+		</p>	
+	</div>

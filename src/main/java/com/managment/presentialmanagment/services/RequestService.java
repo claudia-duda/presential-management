@@ -64,7 +64,7 @@ public class RequestService {
 		obj.setClient(clientService.find(obj.getClient().getId()));
 		obj = repository.save(obj);
 		
-		emailService.sendRequestWaiting(obj);
+		emailService.sendRequestWaitingHtmlEmail(obj);
 		return obj;
 	}
 	
