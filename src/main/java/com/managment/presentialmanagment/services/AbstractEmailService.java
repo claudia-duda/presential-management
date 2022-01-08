@@ -20,7 +20,7 @@ public abstract class AbstractEmailService implements EmailService{
 
 	protected SimpleMailMessage prepareSimpleMailMessageFromRequest(Request obj) {
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(obj.getUser().getEmail());	
+		sm.setTo(obj.getClient().getEmail());	
 		sm.setFrom(sender);
 		sm.setSubject("You Request was created");
 		sm.setSentDate(new Date(System.currentTimeMillis()));

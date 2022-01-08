@@ -39,7 +39,7 @@ public class Request implements Serializable {
 
 	public Request(Client user, Cellphone cellphone, int priority, LocalDateTime date, int category, 
 			int state,String optionalMessage, LocalDateTime limitDate) {
-		id.setUser(user);
+		id.setClient(user);
 		id.setCellphone(cellphone);
 		this.priority = priority;
 		this.date = date;
@@ -57,12 +57,12 @@ public class Request implements Serializable {
 		this.id = id;
 	}
 
-	public Client getUser() {
-		return id.getUser();
+	public Client getClient() {
+		return id.getClient();
 	}
 
-	public void setUser(Client user) {
-		id.setUser(user);
+	public void setClient(Client client) {
+		id.setClient(client);
 	}
 
 	public Cellphone getCellphone() {
@@ -172,7 +172,7 @@ public class Request implements Serializable {
 		builder.append(",State: ");
 		builder.append(getState().getDescription());
 		builder.append(",Requested by: ");	
-		builder.append(getUser().getName());
+		builder.append(getClient().getName());
 		builder.append("\n");
 		return builder.toString();
 	}

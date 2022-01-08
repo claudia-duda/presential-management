@@ -39,7 +39,7 @@ public class DBService {
 		Team team2 = new Team(null, "pre-cert");
 		Team team3 = new Team(null, "CBS");
 
-		Client user = new Client(null, "Cláudia", "claudia@hotmail.com", "123", team);
+		Client user = new Client(null, "Cláudia", "cl.dudaramons@gmail.com", "123", team);
 		Client user2 = new Client(null, "Eric", "erica@hotmail.com", "123", team);
 		Client user3 = new Client(null, "camila", "camila@hotmail.com", "123", team2);
 

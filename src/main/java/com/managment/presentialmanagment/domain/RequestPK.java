@@ -13,19 +13,19 @@ public class RequestPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private Client user;
+	@JoinColumn(name = "client_id", nullable = false)
+	private Client client;
 
 	@ManyToOne
 	@JoinColumn(name = "cellphone_id", nullable = false)
 	private Cellphone cellphone;
 
-	public Client getUser() {
-		return user;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setUser(Client user) {
-		this.user = user;
+	public void setClient(Client user) {
+		this.client = user;
 	}
 
 	public Cellphone getCellphone() {
@@ -38,7 +38,7 @@ public class RequestPK implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cellphone, user);
+		return Objects.hash(cellphone, client);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class RequestPK implements Serializable{
 			return false;
 		}
 		RequestPK other = (RequestPK) obj;
-		return Objects.equals(cellphone, other.cellphone) && Objects.equals(user, other.user);
+		return Objects.equals(cellphone, other.cellphone) && Objects.equals(client, other.client);
 	}
 
 	

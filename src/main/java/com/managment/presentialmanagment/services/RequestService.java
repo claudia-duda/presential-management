@@ -55,15 +55,15 @@ public class RequestService {
 		//	cellphoneService.insert(cellphone);
 		//}
 		obj.setCellphone(cellphoneService.find(obj.getCellphone().getId()));
-		
 		obj.setDate(LocalDateTime.now());
 		
 		if(obj.getPriority() == null) {
 			obj.setPriority(PriorityEnum.GREEN);
 		}
 		obj.setState(StateEnum.PENDING);
-		obj.setUser(clientService.find(obj.getUser().getId()));
+		obj.setClient(clientService.find(obj.getClient().getId()));
 		obj = repository.save(obj);
+		
 		emailService.sendRequestWaiting(obj);
 		return obj;
 	}
