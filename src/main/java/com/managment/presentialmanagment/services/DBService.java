@@ -14,6 +14,7 @@ import com.managment.presentialmanagment.domain.Topic;
 import com.managment.presentialmanagment.domain.Client;
 import com.managment.presentialmanagment.domain.enums.CategoryEnum;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
+import com.managment.presentialmanagment.domain.enums.Profile;
 import com.managment.presentialmanagment.domain.enums.StateEnum;
 import com.managment.presentialmanagment.repositories.CellphoneRepository;
 import com.managment.presentialmanagment.repositories.RequestRepository;
@@ -43,6 +44,8 @@ public class DBService {
 		Team team3 = new Team(null, "CBS");
 
 		Client user = new Client(null, "Cláudia", "cl.dudaramons@gmail.com", passwordEncoder.encode("123"), team);
+		user.addProfile(Profile.ADMIN);
+		
 		Client user2 = new Client(null, "Eric", "erica@hotmail.com", passwordEncoder.encode("123"), team);
 		Client user3 = new Client(null, "camila", "camila@hotmail.com", passwordEncoder.encode("123"), team2);
 

@@ -1,9 +1,15 @@
 package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.managment.presentialmanagment.domain.enums.Profile;
 
 @Entity
 public class Client implements Serializable{
@@ -32,8 +39,12 @@ public class Client implements Serializable{
 	@JoinColumn(name = "team_id")
 	private Team team;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
+	
 	public Client() {
-		
+		addProfile(Profile.CLIENT);
 	}
 	
 	public Client(Integer id, String name, String email, String password,Team team) {
@@ -42,15 +53,9 @@ public class Client implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.team = (team==null) ? null : team;
+		addProfile(Profile.CLIENT);
 	}
-//	@JsonIgnore
-//	public List<Cellphone> getcellphones(){
-//		List<Cellphone> cellphones= new ArrayList<>();
-//		for (Request request: requests) {
-//			cellphones.add(request.getCellphone());
-//		}
-//		return cellphones;
-//	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -82,6 +87,14 @@ public class Client implements Serializable{
 
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+
+	public Set<Profile> getProfiles() {
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addProfile(Profile profile) {
+		profiles.add(profile.getCode());
 	}
 
 	@Override
