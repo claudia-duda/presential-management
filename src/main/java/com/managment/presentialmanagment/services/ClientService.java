@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,10 @@ public class ClientService {
 	
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	//TODO would be a good idea implements a generic service?
 	public Client find(Integer id) { 
 		Optional<Client> obj = repository.findById(id); 
@@ -75,7 +80,8 @@ public class ClientService {
 	
 	public Client fromDTO(ClientNewDTO objDTO) {
 		Team team = teamService.find(objDTO.getTeamId());
-		Client newUser = new Client(null, objDTO.getName(), objDTO.getEmail(), objDTO.getPassword(), team);
+		Client newUser = new Client(null, objDTO.getName(), objDTO.getEmail(),
+				passwordEncoder.encode(objDTO.getPassword()), team);
 		
 		team.addUsers(newUser);
 		teamService.update(team);

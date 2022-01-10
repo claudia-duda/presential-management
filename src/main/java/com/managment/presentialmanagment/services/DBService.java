@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.managment.presentialmanagment.domain.Cellphone;
@@ -33,15 +34,17 @@ public class DBService {
 	private TeamRepository teamRepository;
 	@Autowired
 	private TopicRepository topicRepository;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	public void instantiateTestDatabase() {
 		Team team = new Team(null, "manual");
 		Team team2 = new Team(null, "pre-cert");
 		Team team3 = new Team(null, "CBS");
 
-		Client user = new Client(null, "Cláudia", "cl.dudaramons@gmail.com", "123", team);
-		Client user2 = new Client(null, "Eric", "erica@hotmail.com", "123", team);
-		Client user3 = new Client(null, "camila", "camila@hotmail.com", "123", team2);
+		Client user = new Client(null, "Cláudia", "cl.dudaramons@gmail.com", passwordEncoder.encode("123"), team);
+		Client user2 = new Client(null, "Eric", "erica@hotmail.com", passwordEncoder.encode("123"), team);
+		Client user3 = new Client(null, "camila", "camila@hotmail.com", passwordEncoder.encode("123"), team2);
 
 		Cellphone cellphone = new Cellphone(null, "cebu", "pvt", "CEBU-03", "123456789", "987456321");
 		Cellphone cellphone2 = new Cellphone(null, "tahoe", "evt", "TAHOE-01", "123456789", "987456321");
