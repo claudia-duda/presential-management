@@ -14,57 +14,64 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.managment.presentialmanagment.security.JWTAuthenticationFilter;
+import com.managment.presentialmanagment.security.JWTAuthorizationFilter;
 import com.managment.presentialmanagment.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private Environment env;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private JWTUtil jwtUtil;
-	
-	private static String[] PUBLIC_MATCHERS = {"/h2-console/**"};
-	
-	private static String[] PUBLIC_MATCHERS_GET = {"/requests/**", "/teams/**", "/clients/**"};
-			
+
+	private final static String[] PUBLIC_MATCHERS = { "/h2-console/**" };
+
+	private final static String[] PUBLIC_MATCHERS_GET = { "/requests/**", "/teams/**", "/clients/**" };
+
 	@Override
-	protected void configure(HttpSecurity http) throws Exception{
-		
-		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
+	protected void configure(HttpSecurity http) throws Exception {
+
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
+	    CharacterEncodingFilter filter = new CharacterEncodingFilter(); 
+	    filter.setEncoding("UTF-8"); 
+	    filter.setForceEncoding(true); 
+	    http.addFilterBefore(filter, CsrfFilter.class);
+	    
 		http.cors().and().csrf().disable();
-		http.authorizeRequests()
-			.antMatchers(PUBLIC_MATCHERS).permitAll()
-			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-			.anyRequest().authenticated();
-		
+		http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+				.antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//no creation to User's session
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
+
 	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception{
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
-	
+
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-	
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
