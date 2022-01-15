@@ -45,8 +45,11 @@ public class DBService {
 
 		Client user = new Client(null, "Cláudia", "cl.dudaramons@gmail.com", passwordEncoder.encode("123"), team);
 		user.addProfile(Profile.ADMIN);
+		user.addProfile(Profile.SUPER);
 		
 		Client user2 = new Client(null, "Eric", "erica@hotmail.com", passwordEncoder.encode("123"), team);
+		user2.addProfile(Profile.ADMIN);
+		
 		Client user3 = new Client(null, "camila", "camila@hotmail.com", passwordEncoder.encode("123"), team2);
 
 		Cellphone cellphone = new Cellphone(null, "cebu", "pvt", "CEBU-03", "123456789", "987456321");

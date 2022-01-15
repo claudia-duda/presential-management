@@ -3,7 +3,8 @@ package com.managment.presentialmanagment.domain.enums;
 public enum Profile {
 	
 	ADMIN(1, "ROLE_ADMIN"),
-	CLIENT(2, "ROLE_CLENT");
+	CLIENT(2, "ROLE_CLENT"),
+	SUPER(3, "ROLE_SUPER");
 	
 	
 	private int code;
