@@ -40,7 +40,10 @@ public class UserSS implements UserDetails {
 		
 		return id;
 	}
-
+	public boolean hasRole(Profile profile) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(profile.getDescription()));
+	}
+	
 	@Override
 	public String getPassword() {
 		

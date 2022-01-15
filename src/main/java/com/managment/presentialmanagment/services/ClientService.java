@@ -13,10 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.managment.presentialmanagment.domain.Team;
+import com.managment.presentialmanagment.domain.enums.Profile;
 import com.managment.presentialmanagment.domain.Client;
 import com.managment.presentialmanagment.dto.ClientDTO;
 import com.managment.presentialmanagment.dto.ClientNewDTO;
 import com.managment.presentialmanagment.repositories.ClientRepository;
+import com.managment.presentialmanagment.security.UserSS;
+import com.managment.presentialmanagment.services.exceptions.AuthorizationException;
 import com.managment.presentialmanagment.services.exceptions.DataIntegrityException;
 import com.managment.presentialmanagment.services.exceptions.ObjectNotFoundException;
 
@@ -34,11 +37,15 @@ public class ClientService {
 	
 	//TODO would be a good idea implements a generic service?
 	public Client find(Integer id) { 
+		UserSS user = UserService.authenticated();
+		
+		if(user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("You don't have permission to see others Users");
+		}
+		
 		Optional<Client> obj = repository.findById(id); 
 		return obj.orElseThrow(() ->  new ObjectNotFoundException(
 				"Object not found! Id: "+ id +", Type: " + Client.class.getName()));
-	
-	
 	} 
 	@Transactional
 	public Client insert(Client obj) {

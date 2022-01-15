@@ -48,7 +48,7 @@ public class DBService {
 		user.addProfile(Profile.SUPER);
 		
 		Client user2 = new Client(null, "Eric", "erica@hotmail.com", passwordEncoder.encode("123"), team);
-		user2.addProfile(Profile.ADMIN);
+		user2.addProfile(Profile.CLIENT);
 		
 		Client user3 = new Client(null, "camila", "camila@hotmail.com", passwordEncoder.encode("123"), team2);
 
