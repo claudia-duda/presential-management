@@ -3,10 +3,10 @@ package com.managment.presentialmanagment.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,8 +39,11 @@ public class Cellphone implements Serializable{
 	private String imei1;
 	private String imei2;
 	
-	@OneToMany(mappedBy = "id.cellphone", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "id.cellphone")
 	private Set<Topic> topics = new HashSet<>();
+	
+	@OneToMany(mappedBy = "id.cellphone")
+	private Set<Request> requests = new HashSet<>();
 
 
 	public Cellphone() {
@@ -66,6 +69,16 @@ public class Cellphone implements Serializable{
 		}
 		return list;
 	}
+	@JsonIgnore
+	public List<Client> getClients(){
+		List<Client> list = new ArrayList<>();
+		
+		for (Request request : requests) {
+			list.add(request.getClient());
+		}
+		return list;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -118,14 +131,39 @@ public class Cellphone implements Serializable{
 	public Set<Topic> getTopics() {
 		return topics;
 	}
-
+	
 	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
+	
+	public boolean removeTopic(Topic topic) {
+		
+		for(Topic obj : topics) {
+			if(topic.equals(obj)) {
+				this.topics.remove(topic);
+				return true;
+			}
+	     }
+		return false;
+	}
+	
 	public void addTopic(Topic topic) {
 		this.topics.add(topic);
+	}	
+	 
+	public void addRequest(Request request) {
+		this.requests.add(request);
 	}
-
+	
+	public boolean removeRequest(Request request) {
+		for(Request obj : requests) {
+			if(request.equals(obj)) {
+				this.requests.remove(request);
+				return true;
+			}
+	     }
+		return false;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

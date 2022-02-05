@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.managment.presentialmanagment.domain.Cellphone;
+import com.managment.presentialmanagment.domain.Client;
 import com.managment.presentialmanagment.domain.Request;
 import com.managment.presentialmanagment.domain.enums.PriorityEnum;
 import com.managment.presentialmanagment.domain.enums.StateEnum;
@@ -44,36 +46,44 @@ public class RequestService {
 	
 	} 
 	
-	//TODO would be a good idea insert a cellphone into request only using the id? and throw a exception if it wasn't create yet
-	// or let the user put the whole object and if it doesn't exist
+	
 	@Transactional
 	public Request insert(Request obj) {
 		
-		//Cellphone cellphone = obj.getCellphone();
-		
-		//if(cellphone.getId() == null) {
-		//	cellphoneService.insert(cellphone);
-		//}
-		obj.setCellphone(cellphoneService.find(obj.getCellphone().getId()));
+
+		Cellphone cellphone = cellphoneService.find(obj.getCellphone().getId());
+		Client client = clientService.find(obj.getClient().getId());
 		obj.setDate(LocalDateTime.now());
 		
 		if(obj.getPriority() == null) {
 			obj.setPriority(PriorityEnum.GREEN);
 		}
 		obj.setState(StateEnum.PENDING);
-		obj.setClient(clientService.find(obj.getClient().getId()));
+		
+		client.addRequest(obj);
+		cellphone.addRequest(obj);
+		
 		obj = repository.save(obj);
 		
 		emailService.sendRequestWaitingHtmlEmail(obj);
 		return obj;
 	}
 	
-	public void delete(Integer id) {
-		find(id);
+	public void delete(Request obj) {
 		try{
-			repository.deleteById(id);
+			Client client = clientService.find(obj.getClient().getId());
+
+			Cellphone cellphone = cellphoneService.find(obj.getCellphone().getId());
+			if(client.removeRequest(obj) && cellphone.removeRequest(obj)) {
+				
+				repository.delete(obj);
+			}else {
+				throw new ObjectNotFoundException("Request not found yet");
+			}
+			
+			
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Its no possible delete a Request who is into a topic");
+			throw new DataIntegrityException("Problems into their relationships");
 		}
 	}
 	

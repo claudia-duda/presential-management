@@ -96,8 +96,14 @@ public class Team implements Serializable{
 		this.topics.add(topic);
 	}
 	
-	public void removeTopic(Topic topic) {
-		this.topics.remove(topic);
+	public boolean removeTopic(Topic topic) {
+		for(Topic obj : topics) {
+			if(topic.equals(obj)) {
+				this.topics.remove(topic);
+				return true;
+			}
+	     }
+		return false;
 	}
 	
 	@Override

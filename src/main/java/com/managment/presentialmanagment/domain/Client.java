@@ -1,7 +1,9 @@
 package com.managment.presentialmanagment.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.managment.presentialmanagment.domain.enums.Profile;
@@ -43,6 +46,9 @@ public class Client implements Serializable{
 	@CollectionTable(name = "PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
 	
+	@OneToMany(mappedBy = "id.client")
+	private Set<Request> requests = new HashSet<>();
+	
 	public Client() {
 		addProfile(Profile.CLIENT);
 	}
@@ -55,7 +61,15 @@ public class Client implements Serializable{
 		this.team = (team==null) ? null : team;
 		addProfile(Profile.CLIENT);
 	}
-
+	@JsonIgnore
+	public List<Cellphone> getCellphones(){
+		List<Cellphone> list = new ArrayList<>();
+		for(Request request: requests) {
+			list.add(request.getCellphone());
+		}
+		return list;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -95,8 +109,21 @@ public class Client implements Serializable{
 
 	public void addProfile(Profile profile) {
 		profiles.add(profile.getCode());
+	} 
+	public void addRequest(Request request) {
+		this.requests.add(request);
 	}
-
+	
+	public boolean removeRequest(Request request) {
+		for(Request obj : requests) {
+			if(request.equals(obj)) {
+				this.requests.remove(request);
+				return true;
+			}
+	     }
+		return false;
+		
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

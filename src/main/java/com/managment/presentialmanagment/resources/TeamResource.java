@@ -72,20 +72,18 @@ public class TeamResource {
 		return ResponseEntity.noContent().build();
 	}
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}/all", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-//	@RequestMapping(value = "/{id}/{id}", method = RequestMethod.DELETE)
-//	public ResponseEntity<Void> deleteTopic(@PathVariable Integer idTeam, @PathVariable Integer idTopic){
-//		Team team = service.find(idTeam);
-//		
-//		topicService.delete(idTopic);
-//		
-//		return ResponseEntity.noContent().build();
-//	}
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteTopic(@Valid @RequestBody Topic obj, @PathVariable Integer id){
+		obj.setTeam(service.find(id));
+		topicService.delete(obj);
+		
+		return ResponseEntity.noContent().build();
+	}
 	
 	@RequestMapping(method= RequestMethod.GET)
 	public ResponseEntity<List<TeamDTO>> findAll() {

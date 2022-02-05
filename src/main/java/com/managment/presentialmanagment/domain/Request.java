@@ -3,6 +3,7 @@ package com.managment.presentialmanagment.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -48,7 +49,7 @@ public class Request implements Serializable {
 		this.optionalMessage = optionalMessage;
 		this.limitDate = limitDate;
 	}
-
+	
 	public RequestPK getId() {
 		return id;
 	}
@@ -121,12 +122,11 @@ public class Request implements Serializable {
 		this.limitDate = limitDate;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return Objects.hash(category, date, id, limitDate, optionalMessage, priority, state);
 	}
 
 	@Override
@@ -141,14 +141,10 @@ public class Request implements Serializable {
 			return false;
 		}
 		Request other = (Request) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		return true;
+		return Objects.equals(category, other.category) && Objects.equals(date, other.date)
+				&& Objects.equals(id, other.id) && Objects.equals(limitDate, other.limitDate)
+				&& Objects.equals(optionalMessage, other.optionalMessage) && Objects.equals(priority, other.priority)
+				&& Objects.equals(state, other.state);
 	}
 
 	@Override
