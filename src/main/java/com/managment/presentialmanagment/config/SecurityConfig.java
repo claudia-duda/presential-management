@@ -42,7 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final static String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 
 	private final static String[] PUBLIC_MATCHERS_GET = { "/requests/**", "/teams/**"};
-	private final static String[] PUBLIC_MATCHERS_POST = { "/clients/**"};
+	private final static String[] PUBLIC_MATCHERS_POST = { 
+			"/clients/",
+			"/clients/picture",
+			"/auth/forgot/**"
+	};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

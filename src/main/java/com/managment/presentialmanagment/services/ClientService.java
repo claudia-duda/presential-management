@@ -1,5 +1,6 @@
 package com.managment.presentialmanagment.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,10 +12,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.managment.presentialmanagment.domain.Client;
 import com.managment.presentialmanagment.domain.Team;
 import com.managment.presentialmanagment.domain.enums.Profile;
-import com.managment.presentialmanagment.domain.Client;
 import com.managment.presentialmanagment.dto.ClientDTO;
 import com.managment.presentialmanagment.dto.ClientNewDTO;
 import com.managment.presentialmanagment.repositories.ClientRepository;
@@ -35,6 +37,8 @@ public class ClientService {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private S3Service s3Service;
 	//TODO would be a good idea implements a generic service?
 	public Client find(Integer id) { 
 		UserSS user = UserService.authenticated();
@@ -100,5 +104,8 @@ public class ClientService {
 		newObj.setEmail(obj.getEmail());
 		newObj.setName(obj.getName());
 		
+	}
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
 	}
 }
